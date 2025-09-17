@@ -12,6 +12,7 @@ function setup() { //runs once at start
 
 function draw() { //runs in a loop after setup
   fill("#888084")
+  noStroke()
   circle(200,200,40);
   //circle takes these parameters: x position, y position, diameter
   //tanuki's nose
