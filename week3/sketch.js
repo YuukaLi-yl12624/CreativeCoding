@@ -17,6 +17,8 @@ function setup() {
 
 function draw() {
   
+  //console.log(mouseX + " " + mouseY); //this will show up in the DevTools Pane
+
   //a grayscale color is denotes as a number 0-255  ex:background(127) 
   //an rgb color is denotes as 3 numbers  ex:background(127, 0, 0)
   //we can also use the name of the color  ex:background("black")
