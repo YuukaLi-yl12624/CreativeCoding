@@ -61,8 +61,8 @@ function draw() {
 
       //create the dropping animation when mouse is pressed
       if (mouseIsPressed) {
-        yTransform = yTransform+0.05; 
-        // adds 0.05 to yTransform every frame
+        yTransform = yTransform+0.02; 
+        // adds 0.02 to yTransform every frame
         translate(0, yTransform); 
         // translates downwards by yTransform
       } 
