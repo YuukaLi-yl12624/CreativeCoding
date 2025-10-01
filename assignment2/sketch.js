@@ -18,7 +18,20 @@ function setup() {
 function draw() {
   background("#5b88adff");
   //set background color
-  
+
+  // set random color for raindrop stroke
+  if (strokeHasColor == false) {
+    strokeFillR = random(255);
+    strokeFillG = random(255);
+    strokeFillB = random(255); 
+    // give the stroke random R, G, and B color variables
+    strokeHasColor = true; 
+    // when stroke already has a color, let random stop (let the color stays)
+  }
+    // every time the system runs(or page refreshes), the stroke color changes
+
+
+
 
   //draw columns of raindrops to fill the screen vertically
   for (let y = 20; y < height - 50; y += 100) {
@@ -46,7 +59,7 @@ function draw() {
       // assign the variable value to the scale of rain drops
 
 
-      //create the dropping effect when mouse is pressed
+      //create the dropping animation when mouse is pressed
       if (mouseIsPressed) {
         yTransform = yTransform+0.05; 
         // adds 0.05 to yTransform every frame
@@ -58,19 +71,14 @@ function draw() {
         // lifting the mouse button up resets yTransform
       }
 
-      
-      // set random color for raindrop stroke
-      if (strokeHasColor == false) {
-        strokeFillR = random(255);
-        strokeFillG = random(255);
-        strokeFillB = random(255); 
-        // give the stroke random R, G, and B color variables
-        strokeHasColor = true; 
-        // when stroke already has a color, let random stop (let the color stays)
+
+      // resets the dropping animation and also change the color of strokes
+      if (yTransform >= height){ // when all the raindrops reach the bottom of the screen
+        yTransform = 0; // resets the yTransform
+        strokeHasColor = false; // resets the color randomizaton
       }
-      // every time the system runs(or page refreshes), the stroke color changes
 
-
+      
       // draw raindrop strokes
       strokeWeight(2); // set stroke weight
       stroke(strokeFillR, strokeFillG, strokeFillB, 200);
