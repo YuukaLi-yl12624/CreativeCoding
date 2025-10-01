@@ -124,7 +124,7 @@ strokeWeight(1.5);
 stroke('rgba(255, 255, 255, 0.33)');
 noFill();
 beginShape();
-  vertex(windowWidth/1.75,windowHeight*0.43); 
+  vertex(width/1.75,windowHeight*0.43); 
   vertex(windowWidth/2.1,windowHeight*0.51); 
   vertex(windowWidth/1.75,windowHeight*0.58); 
 endShape();
