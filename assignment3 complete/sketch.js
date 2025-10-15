@@ -225,7 +225,7 @@ function draw() {
   //draw the arc that becomes larger as the seconds amount goes higher
   noStroke();
   fill("#eea15eeb");
-  let secondAngle =  radians(second() * (360 / 60) - HALF_PI);
+  let secondAngle =  - HALF_PI+ radians(second() * (360 / 60));
   arc(150, 200, 199, 199, -HALF_PI, secondAngle, PIE);
   //make the starting point at -HALF_PI(-90 degrees),
   //and the angree degree adds up as the seconds value goes higher and gets converted to radians
