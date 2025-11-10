@@ -7,7 +7,22 @@
  *
  */
 
-// var
+// yl yh xl var
+// yh vars
+let yinqiGhostX = 200; // X position of the ghost (center point)
+let yinqiGhostY = 200; // Y position of the ghost (center point)
+let yinqiGhostNoiseT = 0; // Noise variable
+
+//yl vars
+let speed = 0.01;
+let noisePosition = 0;
+let noiseX = 0;
+let noiseY = 0;
+let noiseR = 0;
+let noiseT = 0;
+let radius = 500;
+
+// xl vars
 let d;
 let lerpSec;
 let lerP;
@@ -32,7 +47,7 @@ let colorPairs = [
 ];
 
 let pMapper;
-let quadXL1, quadXL2, quadXL3; // my quad surfaces
+let quadYH1, quadXL1, quadYL1; // my quad surfaces
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -42,53 +57,120 @@ function setup() {
   pMapper.load("map.json");
 
   // create "quads" for each surface of your projection
+  quadYH1 = pMapper.createQuadMap(400, 400);
   quadXL1 = pMapper.createQuadMap(400, 400);
-  quadXL2 = pMapper.createQuadMap(400, 400);
-  quadXL3 = pMapper.createQuadMap(400, 400);
+  quadYL1 = pMapper.createQuadMap(400, 400);
+  // quadRight = pMapper.createQuadMap(400, 400);
 }
 
 function draw() {
   background(0);
 
   // display each of the projection surfaces in draw
-  t = 0;
+  // quadLeft.displaySketch(mySketch);
+  // quadRight.displaySketch(myOtherSketch);
+
+  quadYH1.displaySketch(yhSketch);
   quadXL1.displaySketch(xlSketch);
-  t = 20;
-  quadXL2.displaySketch(xlSketch);
-  t = 40;
-  quadXL3.displaySketch(xlSketch);
+  quadYL1.displaySketch(ylSketch);
 }
 
-function mySketch(pg) {
+function yhSketch(pg) {
   // "pg" refers to each canvas "instance"
   pg.clear();
   pg.push();
-  // your sketch goes between push and pop. remember to use the 'pg.' prefix for all p5 functions
-  pg.background(0, 255, 0);
-  pg.textAlign(CENTER, CENTER);
-  pg.textSize(70);
-  pg.fill(color("black"));
-  pg.text("hello world", 200, 175);
-  // ends here
+
+  angleMode(DEGREES); //
+  pg.noStroke(); // remove outlines of the ghost
+
+  pg.background(0); // background black
+
+  yinqiGhostNoiseT += 0.01; // By adding 0.01 each frame, theis will changes gradually,
+  // making the ghost’s movement smooth.
+
+  //calculate ghost postion by using cos and sin function, learn this from week 8c.
+  //8C is eyemoving, mine see the ghost as the whole eyes position.
+  let yinqiGhostTheta = noise(yinqiGhostNoiseT) * 360;
+  let yinqiGhostXRadius = noise(yinqiGhostNoiseT + 10) * 40; //x, the original function doesn't add 10, but I tried with some fill number by myself
+  //I experimented with adding them and found the movement looks smoother and more natural.
+  let yinqiGhostYRadius = noise(yinqiGhostNoiseT + 20) * 30; //y
+  let yinqiGhostMoveX = cos(yinqiGhostTheta) * yinqiGhostXRadius;
+  let yinqiGhostMoveY = sin(yinqiGhostTheta) * yinqiGhostYRadius;
+
+  //ghost body, one ellipse, and one rect with round coner
+  pg.fill(255); // white color of the ghost
+  pg.ellipse(
+    yinqiGhostX + yinqiGhostMoveX,
+    yinqiGhostY + yinqiGhostMoveY,
+    100,
+    120
+  );
+  pg.rect(
+    yinqiGhostX - 50 + yinqiGhostMoveX,
+    yinqiGhostY + yinqiGhostMoveY,
+    100,
+    80,
+    50
+  );
+
+  //ghost eyes
+  //Two small black ellipses
+  pg.fill(0);
+  pg.ellipse(
+    yinqiGhostX - 15 + yinqiGhostMoveX,
+    yinqiGhostY + yinqiGhostMoveY - 20,
+    15,
+    20
+  );
+  pg.ellipse(
+    yinqiGhostX + 15 + yinqiGhostMoveX,
+    yinqiGhostY + yinqiGhostMoveY - 20,
+    15,
+    20
+  );
+
+  //draw ghost mouth
+  pg.ellipse(
+    yinqiGhostX + yinqiGhostMoveX,
+    yinqiGhostY + yinqiGhostMoveY + 10,
+    20,
+    10
+  );
+
   pg.pop();
 }
 
-function myOtherSketch(pg) {
+function ylSketch(pg) {
   pg.clear();
   pg.push();
   // your mini sketch goes here!
 
-  pg.background(255, 0, 0);
+  noiseX = random(100);
+  noiseY = random(100);
+  colorMode(HSB);
 
-  pg.rectMode(CORNERS);
-  // and ends here!
+  pg.background("#bac4ccff");
+
+  pg.strokeWeight(3);
+
+  let redAmongus = noise(noisePosition);
+  console.log("raw perlin noise output: " + redAmongus);
+  redAmongus = map(redAmongus, 0, 1, 0, 400);
+
+  pg.fill("#cc1212ff");
+  pg.rect(redAmongus, redAmongus, 50, 80, 70);
+  pg.fill("rgba(255, 255, 255, 1)");
+  pg.rect(redAmongus + 20, redAmongus + 15, 40, 20, 30);
+
+  noisePosition = noisePosition + speed;
+
   pg.pop();
 }
 
-function Circle(pg, x, y, d) {
-  lerP = constrain(0.5 - 1.5 * cos(((lerpSec % 20) * PI) / 10), 0, 1);
-  pg.circle(lerP * x, lerP * y, d);
-}
+// function Circle(x, y, d) {
+//   lerP = pg.constrain(0.5 - 1.5 * cos(((lerpSec % 20) * PI) / 10), 0, 1);
+//   pg.circle(lerP * x, lerP * y, d);
+// }
 
 function xlSketch(pg) {
   pg.clear();
@@ -102,13 +184,13 @@ function xlSketch(pg) {
   d = new Date();
   ms = d.getMilliseconds();
 
-  // lerpSec = second() + ms / 1000;
+  lerpSec = second() + ms / 1000;
   // lerpSec = (second() + 20 + ((ms / 1000) % 1)) % 60;
   // lerpSec = (second() + 40 + ((ms / 1000) % 1)) % 60;
-  lerpSec = (second() + t + ((ms / 1000) % 1)) % 60;
+
+  lerP = constrain(0.5 - 1.5 * cos(((lerpSec % 20) * PI) / 10), 0, 1);
 
   pg.translate(200, 200);
-  pg.rotate(PI / 4);
   pg.scale(3);
 
   pg.background("white");
@@ -119,11 +201,11 @@ function xlSketch(pg) {
     // translate(200, 200);
     // bottom circles
     pg.fill(colorPairs[0].accent);
-    Circle(pg, -25, 20, 50);
-    Circle(pg, 25, 20, 50);
+    pg.circle(-25, 20, 50);
+    pg.circle(25, 20, 50);
     // face circle
     pg.fill(colorPairs[0].tone);
-    Circle(pg, 0, 0, 50);
+    pg.circle(0, 0, 50);
 
     // expression
     pg.push();
@@ -148,19 +230,19 @@ function xlSketch(pg) {
 
     // top (hair) circles
     pg.fill(colorPairs[0].accent);
-    Circle(pg, -15, -25, 50);
-    Circle(pg, 15, -25, 50);
+    pg.circle(-15, -25, 50);
+    pg.circle(15, -25, 50);
     pg.pop();
   } else if (lerpSec >= 20 && lerpSec < 40) {
     pg.push();
     pg.noStroke();
     // bottom circles
     pg.fill(colorPairs[1].accent);
-    Circle(pg, -25, 25, 50);
-    Circle(pg, 25, 25, 50);
+    pg.circle(-25, 25, 50);
+    pg.circle(25, 25, 50);
     // face circle
     pg.fill(colorPairs[1].tone);
-    Circle(pg, 0, 0, 50);
+    pg.circle(0, 0, 50);
 
     // expression
     pg.push();
@@ -185,30 +267,30 @@ function xlSketch(pg) {
 
     // top (hair) circles
     pg.fill(colorPairs[1].accent);
-    Circle(pg, -25, -25, 50);
-    Circle(pg, 25, -25, 50);
-    Circle(pg, 0, -15, 20);
+    pg.circle(-25, -25, 50);
+    pg.circle(25, -25, 50);
+    pg.circle(0, -15, 20);
     pg.pop();
   } else if (lerpSec >= 40 && lerpSec < 60) {
     pg.push();
     pg.noStroke();
     // middle non-head circles
     pg.fill(colorPairs[2].accent);
-    Circle(pg, -25, 0, 50);
-    Circle(pg, 25, 0, 50);
+    pg.circle(-25, 0, 50);
+    pg.circle(25, 0, 50);
     // top and bottom darker circles
     pg.fill(colorPairs[2].tone);
-    Circle(pg, 25, -25, 50);
-    Circle(pg, -25, 25, 50);
+    pg.circle(25, -25, 50);
+    pg.circle(-25, 25, 50);
     // top and bottom lighter circles
     pg.fill(colorPairs[2].accent);
-    Circle(pg, 0, -25, 50);
-    Circle(pg, 0, 25, 50);
-    Circle(pg, -25, -25, 50);
-    Circle(pg, 25, 25, 50);
+    pg.circle(0, -25, 50);
+    pg.circle(0, 25, 50);
+    pg.circle(-25, -25, 50);
+    pg.circle(25, 25, 50);
     // face circle
     pg.fill(colorPairs[2].tone);
-    Circle(pg, 0, 0, 50);
+    pg.circle(0, 0, 50);
 
     // expression
     pg.push();
@@ -252,23 +334,18 @@ function xlSketch(pg) {
   if (lerpSec >= 0 && lerpSec <= 5) {
     pg.push();
     pg.fill(colorPairs[0].accent);
-    // Circle(pg, 400 - 25 * ((lerpSec + 12) % 16), 0, 50);
-    pg.translate(400 - 25 * ((lerpSec + 12) % 16), 0);
-    Circle(pg, 0, 0, 50);
+    pg.circle(400 - 25 * ((lerpSec + 12) % 16), 0, 50);
     pg.pop();
   } else if (lerpSec >= 20 && lerpSec <= 25) {
     pg.push();
     pg.fill(colorPairs[1].accent);
-    // Circle(pg, 400 - 25 * ((lerpSec + 8) % 16), 0, 50);
-    pg.translate(400 - 25 * ((lerpSec + 8) % 16), 0);
-    Circle(pg, 0, 0, 50);
+    pg.circle(400 - 25 * ((lerpSec + 8) % 16), 0, 50);
     pg.pop();
   } else if (lerpSec >= 40 && lerpSec <= 45) {
     pg.push();
     pg.fill(colorPairs[2].tone);
-    // Circle(pg, 400 - 25 * ((lerpSec + 4) % 16), 0, 50);
+    pg.circle(400 - 25 * ((lerpSec + 4) % 16), 0, 50);
     pg.translate(400 - 25 * ((lerpSec + 4) % 16), 0);
-    Circle(pg, 0, 0, 50);
     // expression
     pg.push();
     pg.strokeJoin(ROUND);
@@ -298,23 +375,18 @@ function xlSketch(pg) {
   if (lerpSec >= 15 && lerpSec <= 20) {
     pg.push();
     pg.fill(colorPairs[0].accent);
-    // Circle(pg, -25 * (lerpSec % 16), 0, 50);
-    pg.translate(-25 * ((lerpSec + 16) % 16), 0);
-    Circle(pg, 0, 0, 50);
+    pg.circle(-25 * (lerpSec % 16), 0, 50);
     pg.pop();
   } else if (lerpSec >= 35 && lerpSec <= 40) {
     pg.push();
     pg.fill(colorPairs[1].accent);
-    // Circle(pg, -25 * ((lerpSec + 12) % 16), 0, 50);
-    pg.translate(-25 * ((lerpSec + 12) % 16), 0);
-    Circle(pg, 0, 0, 50);
+    pg.circle(-25 * ((lerpSec + 12) % 16), 0, 50);
     pg.pop();
   } else if (lerpSec >= 55 && lerpSec <= 60) {
     pg.push();
     pg.fill(colorPairs[2].tone);
-    // Circle(pg, -25 * ((lerpSec + 8) % 16), 0, 50);
+    pg.circle(-25 * ((lerpSec + 8) % 16), 0, 50);
     pg.translate(-25 * ((lerpSec + 8) % 16), 0);
-    Circle(pg, 0, 0, 50);
     // expression
     pg.push();
     pg.strokeJoin(ROUND);
