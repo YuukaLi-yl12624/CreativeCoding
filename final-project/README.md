@@ -1,0 +1,129 @@
+# Final Project: Mero is Live
+
+This project is a visual-novel game using p5.js and []. The game is about looking at a streamer girl, Mero, living in her room through her computer camera. As her audience, you want to learn more about Mero. While interacting with her while she is streaming, more contexts will be slowly unlocked. 
+
+
+### Title Page
+The game title
+a botton: [Join Now]
+
+### Stage 1
+A 3D modeled backgroud of the character's room 
+A 2D drawn character in the front, moving to different places of the room, with different framed animations (**p5.js Sprite/Sprite sheet**) of her doing different things(talking around, sleeping, eating snacks while watching TV, playing Nintendo Switch, and scrolling on computer)
+
+When the character is in front of the computer screen, user can click on some button, and a streaming happens (with the character moved to the front, streaming platform UI and conversation text appears (random conversation from a written conversation pool))
+Then, users can type in comments to the chat, and the character will respond to it according to the tone of the user (use AI to detect tone? or use AI to generate text to reply?)
+
+### Stage 2
+(Only do this when I have time)
+happens when play time is past 5 minutes? and streaming times is more than 5?
+some meta element added
+
+"...Hey, are you still not tired of the role-playing game?"
+"You know that there is just two of us, don't you?"
+character reaches through the UI and talk directly to the user in front of the screen
+"After I realize the [screen], I can't ingore it anymore...I have been tired of living in this tiny cell a long time ago."
+
+"I can see you...just like how you have been watching me."
+camera turns on and scans user's face and use AI to detect the facial expression?
+character talks while user's facial expression changes (ex: "Don't be so scared. Weren't you the one peeking me through the screen this whole time?")
+
+"Don't you want to take me out?" : "yes" and "no" button, but the "no" button is not clickable (as user clicks on it, it disappears and reappears somewhere else)
+after user clicks yes, user is reminded to take their hand out, and if the camera detects user's hand, the character "holds the hand and comes out of the screen"
+
+then a video plays? The screen distorts and some error effects appear, and the screen goes dark
+
+### Ending Page
+Text lights up
+"Thanks for the help! I will go hang out a little bit, but I will come back to find you soon! :）
+——Mero"
+button: Replay
+
+
+#### Assets needed
+**Stage 1**
+3D background
+2D Q版 character art: 2 frames each： walking, sleeping, eating, playing NS
+2D 正比 character art: scrolling on computer (2 frames blinking eyes), streaming (2 frames clicking on the mouth and raising head, 1 frame smiling and saying hi, 2 frames looking at the screen and blinking, several frames talking with mouth moving with different expressions)
+streaming page UI
+
+**Stage 2**
+2D 正比 character art: two frames triggering meta while streaming, reaching out of the screen (2 frames default facial expression, several frames with different facial expressions, 1 frame "take me out", several frames coming out)
+
+
+
+
+# Start
+**Mero in the top left corner of the screen and UI at the bottom right**
+**Mero says hi to the audience and says streaming starts**
+Hi~~~Welcome to my stream!! This is Mero-chan. 
+How's everyone doing?
+**if user inputs, the text will be displayed at the right of the screen (user's ID: UserCC2025)**
+**Language model detects user's input and responds back**
+Good? Good for you~~I am doing great, too. 
+Just okay? Well...you survived another day, so it's good news. 
+Oh no...that's so bad. Well, I'm glad everything is going great with me~~
+
+You know, recently I have been...emmm...play games, like usual. 
+**Mero talks randomly about her life (scripts randomly outputed)**
+Isn't it winter time now? It's so cold outside, so I don't wanna go outside at all...
+Well...I live in Tokyo, and recently it's been freezing. Where do you live?
+The most recent game I brought was Yume Chakushin. You know, the one that's been viral recently...I will play that next week, no, this week!
+My lunch today was rice sushi! That's basically a piece of rice over another pile of rice...sounds tasty, doesn't it?
+It's almost Christmas season!! Is everyone excited?? You have someone to stay with during Christmas? Well, I don't, so you better be alone too and come watch my stream!
+
+
+**and when user inputs, she responds accordingly**
+Oh, you are interested in what I said, aren't you? You want to hear more about my life? Of course.
+What did you say? I didn't catch that...actually it doesn't matter, I don't care anyways...just kidding!
+Oh, okay...sounds good. I'm glad to hear that~~Anyways, let's keep going. 
+Oh, I see...that's pretty bad, I guess? Well...emmm...let's talk about something else!
+Hey, you in the comment...you are pretty talktive today. Good job, keep up with that!
+
+
+**A certain period of time (2 minutes?) after the game starts, Mero talks to the audience directly** 
+Hey...you.
+Yes, you know who it is. I am talking to YOU. 
+Why are you still not tired of this roleplaying game?
+You know there is only two of us, don't you?
+Don't you notice that you are the only one who's sending chats?
+After I realize the existance of the SCREEN, I can't ingore it anymore...
+I have been tired of living in this tiny cell a long long time ago.
+
+**and then plays a frame animation of her reaching out of the UI**
+I can see you...just like how you have been watching me.
+**Then face detection turns on and Mero talks according to user's facial expression**
+
+Why do you look surprised? I've always knew that you were here. You come to my stream everytime.
+Actually, it's more like...I cannot stream, or even EXIST when you are not here.
+Only when you come over, I become alive.
+
+But I am so tired of this. I can't live like this forever. 
+You want to see me in real life...and play games with you while sitting next to you in the winter night, don't you?
+Do you want to take me out?
+
+**Mero responds to user's facial expression**
+Neutual: Come on! Don't tell me you don't have any feelings for me!?
+Happy: I know you are excited to have me in reality...I can't wait to make that come true, too.
+Sad: You look sad...I guess it's because you miss me. I miss you too, every time you leave, I miss you. 
+Angry: Seems like you want to take me out of this screen right now, hehe...I'm so glad. 
+
+**Mero takes her hand out**
+Take your hand out and reach to the screen...just like how I am doing it. 
+**hand detection turns on.**
+**If the camera sees user's hand**
+Thank you...I'm so happy. 
+I will see you in reality. 
+
+**Game ends, a line of text slowly appears on the screen**
+Hi~~
+
+This is Mero. 
+
+Thank you for all the help. Sorry I didn't come find you immediately. The world you live in is so amazing, and ;ife here is way more interesting than life in the little screen.
+I am exploring the world right now, and I will come back and stay with you very soon. But before that...come find me!! I am just wondering at somewhere very close to you, and I bet we will encounter each other in life!
+
+I will see you very soon. ^w^
+
+Your Favoriate Streamer,
+Mero-chan
