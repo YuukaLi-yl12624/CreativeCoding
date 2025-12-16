@@ -137,7 +137,8 @@ function draw() {
   if (stage === 0) {
     // let the image fill in the whole page so that it serves as the background
     // let the background for stage 0 appear first so that it is on the lowerest layer
-    image(background0, 0, 0, width, height);     
+    image(background0, 0, (height - width * (background0.height / background0.width)) / 2, width, width * (background0.height / background0.width)); 
+    // I tried to make the image not lose its perspective while the webpage changes perspective
     // the title line of the game
     textAlign(CENTER);
     textSize(28);
@@ -148,11 +149,11 @@ function draw() {
   } 
   else if (stage === 1) {
     // do the same for background images for stage 1
-    image(background12, 0, 0, width, height);
+  image(background12, 0, (height - width * (background12.height / background12.width)) / 2, width, width * (background12.height / background12.width));
     // if the current character image exists, draw it out
     // let the character image also fill the whole page (these images are PNGs with transparent backgrounds, so that the background also shows)
     if (currentMeroImg) {
-      image(currentMeroImg, 0, 0, width, height);
+      image(currentMeroImg, 0, (height - width * (currentMeroImg.height / currentMeroImg.width)) / 2, width, width * (currentMeroImg.height / currentMeroImg.width));
     }
     // show the user's chat on the page
     textAlign(LEFT);
@@ -171,10 +172,10 @@ function draw() {
   } 
   else if (stage === 2) {
     // do the same for background images for stage 2
-    image(background12, 0, 0, width, height);
+    image(background12, 0, (height - width * (background12.height / background12.width)) / 2, width, width * (background12.height / background12.width));
     // do the same for character images for stage 2
     if (currentMeroImg) {
-      image(currentMeroImg, 0, 0, width, height);
+      image(currentMeroImg, 0, (height - width * (currentMeroImg.height / currentMeroImg.width)) / 2, width, width * (currentMeroImg.height / currentMeroImg.width));
     }
     // show the user's chat on the page
     textAlign(LEFT);

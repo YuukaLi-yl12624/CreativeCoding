@@ -1,6 +1,11 @@
 # Final Project: Mero is Live
 
-This project is a visual-novel game using p5.js and []. The game is about looking at a streamer girl, Mero, living in her room through her computer camera. As her audience, you want to learn more about Mero. While interacting with her while she is streaming, more contexts will be slowly unlocked. 
+This project is a visual-novel game. The game is about looking at a streamer girl, Mero, doing streaming through her computer camera. As her audience, you want to learn more about Mero. While interacting with her while she is streaming, more contexts will be slowly unlocked. 
+
+
+
+I used ml5.js Sentiment model to get the predicted positivity level of user's inputs. It runs in stages: stage 0 collects the username, stage 1 greets and responds with a matching character image based on the first sentiment, and stage 2 continues with both sentiment-driven replies and right-arrow-triggered random scripts. Text and images are kept in sync via parallel arrays (stage 1 greet/positive/neutral/negative; stage 2 random lines; stage 2 positive/neutral/negative response pools). Enter submits the username or chat; Right Arrow advances to or through stage 2. Inputs/buttons are created with p5 DOM. Backgrounds and character images are drawn with aspect-ratio-preserving scaling and centered placement, and `textWrap` keeps text readable as the window resizes.
+
 
 
 ## Game Plot
