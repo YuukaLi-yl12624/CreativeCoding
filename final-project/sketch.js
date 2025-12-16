@@ -130,9 +130,7 @@ function setup() {
 
 // ===== draw =====
 function draw() {
-  background(20);
-  fill(255); // set a background color
-
+  
   // set up things that are supposed to happen on different stages
   if (stage === 0) {
     // let the image fill in the whole page so that it serves as the background
@@ -142,6 +140,7 @@ function draw() {
     // the title line of the game
     textAlign(CENTER);
     textSize(28);
+    fill('white');
     text("[Mero] is Live. Come Hang out!", windowWidth / 2, windowHeight / 2 - 120); 
     // the text below the title line that tells the user to put in their username
     textSize(18);
@@ -205,9 +204,10 @@ function buildStage0UI() {
   ConfirmBtn.mousePressed(saveName); // when button is pressed, the saveName function runs and saves the username for later use
 }
 // remove stage 0 UI before going to stage 1
-function destroyStage0UI() {
+function removeStage0UI() {
   if (NameInput) {
     NameInput.remove(); // if the NameInput UI exists here, remove it
+    // I got this from https://p5js.org/reference/p5.Element/remove/
   }
   if (ConfirmBtn) {
     ConfirmBtn.remove(); // if the ConfirmBtn UI exists here, remove it
@@ -219,7 +219,7 @@ function saveName() {
   savedUsername = NameInput.value(); // save the value of the inputed username from the input box for later use
   stage = 1; // after username is saved, the stage goes to stage 1
   //remove the UI from stage 0 and built the UI from stage 1
-  destroyStage0UI();
+  removeStage0UI();
   buildStage1UI();
   // the first dialogue of the character at the beginning of stage 1 auto appears
   MeroResponse = "Hi~~~Welcome to my stream!! This is Mero-chan. How's everyone doing?";

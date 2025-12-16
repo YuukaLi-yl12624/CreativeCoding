@@ -3,25 +3,26 @@
 This project is a visual-novel game. The game is about looking at a streamer girl, Mero, doing streaming through her computer camera. As her audience, you want to learn more about Mero. While interacting with her while she is streaming, more contexts will be slowly unlocked. 
 Mero is my original character and also the main character of my indie video game. I have always thought that p5.js is a great medium for making visual novels, especially when they can run on a webpage. Therefore, I made this game for my final project.
 
-First of all, I set up different stages for the game used if else function to make sure different parts of the code runs during different stages, and triggered the change of stages when everything on the current stage finished running. This way, the project will run more like a visual novel. I rendered the images background of the game (Mero's bedroom) and Mero's different images with different body posture and facial expressions in Blender and Unreal Engine and inputed the PNGs into the file folder to use them in the game. The main interaction is 
+First of all, I set up different stages for the game used if/else function to make sure different parts of the code runs during different stages, and triggered the change of stages when everything on the current stage finished running. This way, the project will run more like a visual novel. For the UI of different stages, I made sure UIs of the desinated stages are only displayed when the stage # changes, and at the same time, the UI for the previous stage gets removed from the screen. 
+
+I rendered the images background of the game (Mero's bedroom) and Mero's different images with different body posture and facial expressions in Blender and Unreal Engine and inputed the PNGs into the file folder to use them in the game. I used arrays to make sure different PNGs of Mero align with the dialogues she says; this way, every time Mero says a new line, her facial expression and body posture changes.
+
+Stage 0 is the title page, and starting from stage 1 is the main game. On stage 0, there is a text input box for users to input their username, which will be stored and outputed to the top right corner of the screen on later stages. After the username is inputed, the game begins. 
+
+The main interaction of the game, starting from stage 1, is through sending chats to Mero like how audiences would send chats to streamers.Users can do this by inputing texts in the input box and see Mero's response to it. To do this, I used ml5.js Sentiment Model to determine the sentiment confidence level - or in other words, how positive it is - of user's inputed texts. Then, I let Mero respond differently to user's inputs, depending on the sentiment confidence. Other than doing that, user can also press the right arrow to let Mero talk by herself. By doing this, the system will pull a random quote - and its aligned image - from the poll of quptes I wrote to display to the screen. 
+
+**There is a list of resources I used when I was writing the code:**
+ml5.js Sentiment Model: https://docs.ml5js.org/#/reference/sentiment （I added more functions based on it so that it does not only detects the sentiment confidence but also let Mero talk something back according to it
+Change stages: https://www.youtube.com/watch?v=RlsRQS5qFSY&t=87s (I added a lot from it when I found out UI would not run correctly when I put them in function draw(), so I put the UI in setup instead)
+Remove UI for previous stage: https://p5js.org/reference/p5.Element/remove/
+Create input boxes: https://p5js.org/reference/p5/createInput/
+Create buttons: https://p5js.org/reference/p5/createButton/
+Textwrap: https://p5js.org/reference/p5/textWrap/ (so that the text stays inside the screen and automatically goes to the next line when hitting the edge of the screen)
 
 
-I built this as a staged p5.js + ml5.js experience. 
-
-In preload I load the backgrounds, all the character art (stage 1 greet/positive/neutral/negative, stage 2 sentiment images, and stage 2 random-script images), plus the ml5 MovieReviews sentiment model.
-
-In setup I create the canvas, turn on textWrap, and show the stage 0 UI (username input + confirm). 
-The draw loop branches by stage: stage 0 shows the first background with a title and username prompt; stage 1 shows the stream background, the current character image (starting with the greet image), the user’s latest input on the right, and Mero’s response in the center; stage 2 reuses the stream background, shows the current character image, and displays the current line (either a sentiment reply or a random script). 
-
-Interaction is via the keyboard: Enter in stage 0 saves the username and moves to stage 1; Enter in stage 1/2 reads the chat and runs ml5 sentiment analysis. Right Arrow moves from stage 1 into stage 2, and in stage 2 each press advances to a new random script.
-
-Sentiment handling uses the ml5 confidence: >0.7 positive, >0.4 neutral, else negative. In stage 1 I set a matching text and character image from the stage-1 set (greet/pos/neu/neg). In stage 2 I pick a random line from the positive/neutral/negative pools and set both the text and its aligned sentiment image. Random scripts in stage 2 are chosen with a shared index from parallel arrays (Stage2Texts/Stage2Imgs), so the line and the character image stay in sync. All text/image pairings use parallel arrays keyed by index to keep dialogue and art aligned throughout.
 
 
-I used ml5.js Sentiment model to get the predicted positivity level of user's inputs. It runs in stages: stage 0 collects the username, stage 1 greets and responds with a matching character image based on the first sentiment, and stage 2 continues with both sentiment-driven replies and right-arrow-triggered random scripts. Text and images are kept in sync via parallel arrays (stage 1 greet/positive/neutral/negative; stage 2 random lines; stage 2 positive/neutral/negative response pools). Enter submits the username or chat; Right Arrow advances to or through stage 2. Inputs/buttons are created with p5 DOM. Backgrounds and character images are drawn with aspect-ratio-preserving scaling and centered placement, and `textWrap` keeps text readable as the window resizes.
-
-
-
+Below is my plan for the plot of the game at the beginning of the development.
 ## Game Plot
 
 ### Start
