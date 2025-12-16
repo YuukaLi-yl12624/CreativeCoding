@@ -1,6 +1,5 @@
 // To make different things happen in different time, I determined different stages
 // Therefore, different parts of the code run when the stage # is different
-// I learned to do this from https://www.youtube.com/watch?v=RlsRQS5qFSY&t=87s
 
 // ===== Stage 0 variables =====
 let stage = 0; // the start of the game
@@ -72,22 +71,22 @@ let NegativeImgs = [];
 
 // ===== preload =====
 function preload() {
-  // load different background images for different stages
+  // load different backgrounds for different stages
   background0 = loadImage('Imgs/Bedroom Overview.png'); // stage 0 background
   background12 = loadImage('Imgs/StreamingBackground.png'); // stage 1 and 2 background
 
   // load different character images for different dialogue
-  // stage 0 images
-  mero1 = loadImage('Imgs/1.png'); // greeting
-  mero2 = loadImage('Imgs/2.png'); // when the user's first response is positive
-  mero3 = loadImage('Imgs/3.png'); // when the user's first response is neutral
-  mero4 = loadImage('Imgs/4.png'); // when the user's first response is negative
   // stage 1 images
-  meroP = loadImage('Imgs/P.png'); // when the user's later responses are positive
-  meroN = loadImage('Imgs/N.png'); // when the user's later responses are neutral
-  meroNg = loadImage('Imgs/Ng.png'); // when the user's later responses are negative
-  // stage 2 images
-  meroR1 = loadImage('Imgs/R1.png'); // random dialogues when the user clicks the right button to go to the next frame
+  mero1 = loadImage('Imgs/1.png'); // greeting
+  mero2 = loadImage('Imgs/2.png'); // when the user's stage 1 chat is positive
+  mero3 = loadImage('Imgs/3.png'); // when the user's stage 1 chat is neutral
+  mero4 = loadImage('Imgs/4.png'); // when the user's stage 1 chat is negative
+  // stage 2 images: response
+  meroP = loadImage('Imgs/P.png'); // when the user's stage 2 chat is positive
+  meroN = loadImage('Imgs/N.png'); // when the user's stage 2 chat is neutral
+  meroNg = loadImage('Imgs/Ng.png'); // when the user's stage 2 chat is negative
+  // stage 2 images: random
+  meroR1 = loadImage('Imgs/R1.png'); // these are random dialogues when the user clicks the right button to go to the next frame on stage 2
   meroR2 = loadImage('Imgs/R2.png');
   meroR3 = loadImage('Imgs/R3.png');
   meroR4 = loadImage('Imgs/R4.png');
@@ -103,10 +102,9 @@ function preload() {
   // stage 2 random chats and images, which are aligned by index to match each other
   Stage2Texts = [MeroChats[0], MeroChats[1], MeroChats[2], MeroChats[3], MeroChats[4], MeroChats[5], MeroChats[6], MeroChats[7], MeroChats[8], MeroChats[9]];
   Stage2Imgs = [meroR1, meroR2, meroR3, meroR4, meroR5, meroR6, meroR7, meroR8, meroR9, meroR10];
-  // responses depending on user's input sentiment
-  // make chats and images aligned by index 
+  // stage 2 response chats and images depending on user's input sentiment, also aligned by index 
   PositiveTexts = [PositiveResponse[0], PositiveResponse[1]];
-  PositiveImgs = [meroP, meroP];
+  PositiveImgs = [meroP, meroP]; // there are two chats that share the same image for each kind of response here
   NeutralTexts = [NeutralResponse[0], NeutralResponse[1]];
   NeutralImgs = [meroN, meroN];
   NegativeTexts = [NegativeResponse[0], NegativeResponse[1]];
@@ -139,8 +137,8 @@ function draw() {
 
   // set up things that are supposed to happen on different stages
   if (stage === 0) {
+    // let the image fill in the whole page so that it serves as the background
     // let the background for stage 0 appear first so that it is on the lowerest layer
-    // let the image that is supposed to be the background fill in the whole page
     image(background0, 0, 0, width, height);     
     // the title line of the game
     textAlign(CENTER);
@@ -162,7 +160,7 @@ function draw() {
     textAlign(LEFT);
     textSize(15);
     noStroke();
-    // show the user name stored eariler when the user write their username on stage 0 
+    // show the user name stored eariler when the user input their username on stage 0 
     // then show the chat they put in inside the text box
     text("[" + savedUsername + "] " + analyzedChat, windowWidth * 0.8, 30, windowWidth * 0.15); 
     // show Mero's response based on the sentiment level of user inputs
