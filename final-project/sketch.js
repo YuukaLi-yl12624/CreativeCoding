@@ -5,8 +5,8 @@
 // ===== Stage 0 variables =====
 let stage = 0; // the start of the game
 let background0; 
-let NameInput;
-let ConfirmBtn;
+let NameInput; 
+let ConfirmBtn; 
 let savedUsername = "";
 
 // ===== Stage 1 variables =====
@@ -48,14 +48,14 @@ let NeutralResponse = [
 let NegativeResponse = [
   "Oh, I see...that's pretty sad, I guess? Well...emmm...let's talk about something else!",
   "Hmm...If you had a bad day...I can give you my positive energy!...If I have any."];
-// holds the line currently displayed on the screern
+// holds the texts currently displayed on the screern
 let MeroCurrentLine = "";
 
 // character images
-let currentMeroImg; // leave the original image empty and put images in in differnt conditions
-let mero1, mero2, mero3, mero4; // stage 0 four images
-let meroP, meroN, meroNg; // Positive, Neutral, NeGative responses images
-let meroR1, meroR2, meroR3, meroR4, meroR5, meroR6, meroR7, meroR8, meroR9, meroR10; // random talk images (R = random)
+let currentMeroImg; // leave the original image empty and put images in depending on different conditions
+let mero1, mero2, mero3, mero4; // stage 1 four images
+let meroP, meroN, meroNg; // stage 2 Positive, Neutral, NeGative responses images
+let meroR1, meroR2, meroR3, meroR4, meroR5, meroR6, meroR7, meroR8, meroR9, meroR10; // stage 2 random talk images (R = random)
 
 // set up empty arrays to keep chat and images align by index
 let Stage1Imgs = [];
@@ -72,10 +72,11 @@ let NegativeImgs = [];
 
 // ===== preload =====
 function preload() {
+  // load different background images for different stages
   background0 = loadImage('Imgs/Bedroom Overview.png'); // stage 0 background
   background12 = loadImage('Imgs/StreamingBackground.png'); // stage 1 and 2 background
 
-  // load different images for different dialogue
+  // load different character images for different dialogue
   // stage 0 images
   mero1 = loadImage('Imgs/1.png'); // greeting
   mero2 = loadImage('Imgs/2.png'); // when the user's first response is positive
