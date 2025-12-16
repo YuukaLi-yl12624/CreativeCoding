@@ -185,7 +185,7 @@ function draw() {
     // show the user name stored eariler when the user write their username on stage 0 
     // then show the chat they put in inside the text box
     text("[" + savedUsername + "] " + analyzedChat, windowWidth * 0.8, 30, windowWidth * 0.15); 
-    // show Mero's response 
+    // show Mero's response or randomized chat
     textAlign(CENTER);
     textSize(18);
     stroke('black');
@@ -197,37 +197,40 @@ function draw() {
 
 
 // ===== other functions =====
-// create stage 0 UIs
+// create stage 0 UI
 function buildStage0UI() {
-  NameInput = createInput();
-  NameInput.position(windowWidth / 2 - NameInput.width*2/3, windowHeight / 2);
-  ConfirmBtn = createButton("Confirm");
-  ConfirmBtn.position(windowWidth / 2 +NameInput.width/3, windowHeight / 2);
-  ConfirmBtn.mousePressed(saveName);
+  NameInput = createInput(); // create the input box for users to put in their username. I got this from https://p5js.org/reference/p5/createInput/
+  NameInput.position(windowWidth / 2 - NameInput.width*2/3, windowHeight / 2); // position the input box 
+  ConfirmBtn = createButton("Confirm"); // create the button to let users submit their user name. I got this from https://p5js.org/reference/p5/createButton/
+  ConfirmBtn.position(windowWidth / 2 + NameInput.width/3, windowHeight / 2); // position the button
+  ConfirmBtn.mousePressed(saveName); // when button is pressed, the saveName function runs and saves the username for later use
 }
 // remove stage 0 UI before going to stage 1
 function destroyStage0UI() {
-  if (NameInput) NameInput.remove();
-  if (ConfirmBtn) ConfirmBtn.remove();
+  if (NameInput) {
+    NameInput.remove(); // if the NameInput UI exists here, remove it
+  }
+  if (ConfirmBtn) {
+    ConfirmBtn.remove(); // if the ConfirmBtn UI exists here, remove it
+  }
 }
 
 // save the inputed username on stage 0 to be used in further stages
 function saveName() {
-  savedUsername = NameInput.value();
-  // after username is saved, the stage goes to stage 1
-  stage = 1;
-  //chang the UI from stage 0 to stage 1
+  savedUsername = NameInput.value(); // save the value of the inputed username from the input box for later use
+  stage = 1; // after username is saved, the stage goes to stage 1
+  //remove the UI from stage 0 and built the UI from stage 1
   destroyStage0UI();
   buildStage1UI();
-  // the first dialogue of the character at the beginning of stage 1
+  // the first dialogue of the character at the beginning of stage 1 auto appears
   MeroResponse = "Hi~~~Welcome to my stream!! This is Mero-chan. How's everyone doing?";
-  // first image for stage 1: greeting
+  // first image for stage 1 (greeting) auto appears
   currentMeroImg = Stage1Imgs[0]; 
 }
 
-// 
+// create stage 1 UI
 function buildStage1UI() {
-  // resize canvas for chat layout
+  // resize canvas so that there can be a chatbox below it
   resizeCanvas(windowWidth, windowHeight * 0.75);
   // Setup the DOM elements (input box and send button)
   inputBox = createInput("Send Chat...");
