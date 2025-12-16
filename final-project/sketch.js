@@ -14,10 +14,8 @@ let background12;
 let sentiment;
 let sendBtn;
 let inputBox;
-// let sentimentResult;
-// P5.js Display variables
+// display variables
 let analyzedChat = "";
-let ChatSent = false;
 let MeroResponse = "";
 
 // ===== Stage 2 elements =====
@@ -240,15 +238,15 @@ function buildStage1UI() {
 
 // start this function and both output the text on to the screen and start the prediction
 function analyzeAndDisplay() {
-  // I got this from https://editor.p5js.org/ml5/sketches/hopIvsCGL
-  analyzedChat = inputBox.value();
-  ChatSent = true;
-  getSentiment();
+  analyzedChat = inputBox.value(); // get the inputed text
+  getSentiment(); // run the ML5 sentiment function
 }
 
 // I got this from https://editor.p5js.org/ml5/sketches/hopIvsCGL
 function getSentiment() {
+  // Use the value of the input box
   let text = inputBox.value();
+  // Start making the prediction (determine the positivity value of the inputed text)
   sentiment.predict(text, gotResult);
 }
 
