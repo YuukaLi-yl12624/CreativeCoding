@@ -57,7 +57,7 @@ let mero1, mero2, mero3, mero4; // stage 0 four images
 let meroP, meroN, meroNg; // Positive, Neutral, NeGative responses images
 let meroR1, meroR2, meroR3, meroR4, meroR5, meroR6, meroR7, meroR8, meroR9, meroR10; // random talk images (R = random)
 
-//
+// set up empty arrays to keep chat and images align by index
 let Stage1Imgs = [];
 let Stage2Texts = [];
 let Stage2Imgs = [];
@@ -97,12 +97,13 @@ function preload() {
   meroR9 = loadImage('Imgs/R9.png');
   meroR10 = loadImage('Imgs/R10.png');
 
-  //stage 1 images:
+  // stage 1 images: greeting, positive response, neutral response, negative response
   Stage1Imgs = [mero1, mero2, mero3, mero4];
-  //stage 2 random texts and images, which are aligned by index to match each other
+  // stage 2 random chats and images, which are aligned by index to match each other
   Stage2Texts = [MeroChats[0], MeroChats[1], MeroChats[2], MeroChats[3], MeroChats[4], MeroChats[5], MeroChats[6], MeroChats[7], MeroChats[8], MeroChats[9]];
   Stage2Imgs = [meroR1, meroR2, meroR3, meroR4, meroR5, meroR6, meroR7, meroR8, meroR9, meroR10];
-  //responses depending on user's input sentiment texts and images aligned by index 
+  // responses depending on user's input sentiment
+  // make chats and images aligned by index 
   PositiveTexts = [PositiveResponse[0], PositiveResponse[1]];
   PositiveImgs = [meroP, meroP];
   NeutralTexts = [NeutralResponse[0], NeutralResponse[1]];
@@ -221,7 +222,7 @@ function saveName() {
   buildStage1UI();
   // the first dialogue of the character at the beginning of stage 1
   MeroResponse = "Hi~~~Welcome to my stream!! This is Mero-chan. How's everyone doing?";
-  // first image for stage 1 greeting
+  // first image for stage 1: greeting
   currentMeroImg = Stage1Imgs[0]; 
 }
 
@@ -257,45 +258,48 @@ function gotResult(prediction) {
   let confidence = prediction.confidence;
   if (confidence > 0.7) { // meaning the user's input is positive
     if (stage === 1) {
-      // let the character response according to the sentiment level of the input
+      // let the character response according to the sentiment level of the input: positive response for stage 1
       MeroResponse = "Doing good? Good for you~~~I am doing good, too. ";
-      // stage 1 image for positive/neutral/negative
+      // positive image for stage 1 
       currentMeroImg = Stage1Imgs[1];
     } else if (stage === 2) {
-      // pick a random chat and its aligned image for stage 2
-      const i = floor(random(PositiveTexts.length));
-      MeroResponse = PositiveTexts[i];
-      MeroCurrentLine = PositiveTexts[i];
-      currentMeroImg = PositiveImgs[i];
+      // pick a random response from the positive responses and its aligned image: positive response&image for stage 2
+      const i = floor(random(PositiveTexts.length)); // pick a random index
+      MeroResponse = PositiveTexts[i]; // get the response text according to the index
+      MeroCurrentLine = PositiveTexts[i]; // let the text be displayed to the screen
+      currentMeroImg = PositiveImgs[i]; // get the aligned image according to the index
     }
   } else if (confidence > 0.4) { // meaning the user's input is neutral
     if (stage === 1) {
+      // neutral response for stage 1
       MeroResponse = "Just okay? Well...you survived another day, so that's good news. ";
-      //  
+      // neutral image for stage 1 
       currentMeroImg = Stage1Imgs[2];
     } else if (stage ===2) {
-      //  
-      const i = floor(random(NeutralTexts.length));
-      MeroResponse = NeutralTexts[i];
-      MeroCurrentLine = NeutralTexts[i];
-      currentMeroImg = NeutralImgs[i];
+      // neutral response&image for stage 2
+      const i = floor(random(NeutralTexts.length)); // pick a random index
+      MeroResponse = NeutralTexts[i]; // get the response text according to the index
+      MeroCurrentLine = NeutralTexts[i]; // let the text be displayed to the screen
+      currentMeroImg = NeutralImgs[i]; // get the aligned image according to the index
     }
   } else { // meaning the user's input is negative
     if (stage === 1) {
+      // negative response for stage 1
       MeroResponse = "Oh, wow, that's so bad......Well, at least everything is going well with me~~";
-      //  
+      //  negative image for stage 1 
       currentMeroImg = Stage1Imgs[3];
     } else if (stage === 2 ) {
-      //   
-      const i = floor(random(NegativeTexts.length));
-      MeroResponse = NegativeTexts[i];
-      MeroCurrentLine = NegativeTexts[i];
-      currentMeroImg = NegativeImgs[i];
+      // negative response&image for stage 2
+      const i = floor(random(NegativeTexts.length)); // pick a random index
+      MeroResponse = NegativeTexts[i]; // get the response text according to the index
+      MeroCurrentLine = NegativeTexts[i]; // let the text be displayed to the screen
+      currentMeroImg = NegativeImgs[i]; // get the aligned image according to the index
     }
   }
 }
 
 
+// make thing happen when user press some keys
 function keyPressed() {
   // Start the desinated functions for each stage when the Enter key is pressed
   // this is used when user input texts and use the Enter key for "sending the text"
@@ -307,6 +311,7 @@ function keyPressed() {
     }
   }
 
+  // this is used when user needs to let the character speaks a random line
   if (keyCode === RIGHT_ARROW) {
     if (stage === 1) {
       // on stage 1, when the right arrow key is pressed, the stage goes to stage 2
@@ -319,11 +324,11 @@ function keyPressed() {
   }
 }
 
-
+// on stage 2, goes to the next frame means to get a new random chat and its aligned image
 function nextFrame() {
-  const i = floor(random(Stage2Texts.length));
-  MeroRandomChat = Stage2Texts[i];
-  MeroCurrentLine = Stage2Texts[i];
-  currentMeroImg = Stage2Imgs[i];
+  const i = floor(random(Stage2Texts.length)); // pick a random index
+  MeroRandomChat = Stage2Texts[i]; // get the chat text according to the index
+  MeroCurrentLine = Stage2Texts[i]; // let the text be displayed to the screen
+  currentMeroImg = Stage2Imgs[i]; // get the aligned image according to the index
 }
 
