@@ -11,6 +11,7 @@ Stage 0 is the title page, and starting from stage 1 is the main game. On stage 
 
 The main interaction of the game, starting from stage 1, is through sending chats to Mero like how audiences would send chats to streamers.Users can do this by inputing texts in the input box and see Mero's response to it. To do this, I used ml5.js Sentiment Model to determine the sentiment confidence level - or in other words, how positive it is - of user's inputed texts. Then, I let Mero respond differently to user's inputs, depending on the sentiment confidence. Other than doing that, user can also press the right arrow to let Mero talk by herself. By doing this, the system will pull a random quote - and its aligned image - from the poll of quptes I wrote to display to the screen. 
 
+========================================
 
 **There is a list of resources I used when I was writing the code:**
 
@@ -27,7 +28,7 @@ Create buttons: https://p5js.org/reference/p5/createButton/
 Textwrap: https://p5js.org/reference/p5/textWrap/ (so that the text stays inside the screen and automatically goes to the next line when hitting the edge of the screen)
 
 
-
+========================================
 
 **Below is my plan for the plot of the game at the beginning of the development.**
 
@@ -78,7 +79,7 @@ Oh, I see...that's pretty bad, I guess? Well...emmm...let's talk about something
 
 Hey, you in the comment...you are pretty talktive today. Good job, keep up with that!
 
-#### I have not yet developed stages after this, but I will continue to develop it in the future.
+#### (I have not yet developed stages after this, but I will continue to develop it in the future.)
 
 **A certain period of time (2 minutes?) after the game starts, Mero talks to the audience directly** 
 
