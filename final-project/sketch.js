@@ -251,35 +251,43 @@ function getSentiment() {
 }
 
 // I got this from https://editor.p5js.org/ml5/sketches/hopIvsCGL
+// I changed the code to make it work as making the character respond to the user's input according to the sentiment confidence
+// instead of only outputing the sentiment confidence to the screen
 function gotResult(prediction) {
-  let confidence = prediction.confidence;
-  if (confidence > 0.7) { // meaning the user's input is positive
-    if (stage === 1) {
-      // let the character response according to the sentiment level of the input: positive response for stage 1
-      MeroResponse = "Doing good? Good for you~~~I am doing good, too. ";
+  // when the user's input is positive
+  if (prediction.confidence > 0.7) { 
+    if (stage === 1) { 
+      // let the character response according to the sentiment level of the input
+      // positive response for stage 1
+      MeroResponse = "Doing good? Good for you~~~I am doing good, too. "; 
       // positive image for stage 1 
-      currentMeroImg = Stage1Imgs[1];
-    } else if (stage === 2) {
-      // pick a random response from the positive responses and its aligned image: positive response&image for stage 2
-      const i = floor(random(PositiveTexts.length)); // pick a random index
+      currentMeroImg = Stage1Imgs[1]; 
+    } else if (stage === 2) { 
+      // pick a random response from the positive responses and its aligned image
+      // positive response&image for stage 2
+      const i = floor(random(PositiveTexts.length)); // pick a random index 
       MeroResponse = PositiveTexts[i]; // get the response text according to the index
       MeroCurrentLine = PositiveTexts[i]; // let the text be displayed to the screen
       currentMeroImg = PositiveImgs[i]; // get the aligned image according to the index
     }
-  } else if (confidence > 0.4) { // meaning the user's input is neutral
-    if (stage === 1) {
+  } 
+  // when the user's input is neutral
+  else if (prediction.confidence > 0.4) { 
+    if (stage === 1) { 
       // neutral response for stage 1
       MeroResponse = "Just okay? Well...you survived another day, so that's good news. ";
       // neutral image for stage 1 
       currentMeroImg = Stage1Imgs[2];
-    } else if (stage ===2) {
+    } else if (stage ===2) { 
       // neutral response&image for stage 2
       const i = floor(random(NeutralTexts.length)); // pick a random index
       MeroResponse = NeutralTexts[i]; // get the response text according to the index
       MeroCurrentLine = NeutralTexts[i]; // let the text be displayed to the screen
       currentMeroImg = NeutralImgs[i]; // get the aligned image according to the index
     }
-  } else { // meaning the user's input is negative
+  } 
+  // when the user's input is negative
+  else { 
     if (stage === 1) {
       // negative response for stage 1
       MeroResponse = "Oh, wow, that's so bad......Well, at least everything is going well with me~~";
@@ -296,23 +304,21 @@ function gotResult(prediction) {
 }
 
 
-// make thing happen when user press some keys
+// make things happen when user press some keys
 function keyPressed() {
-  // Start the desinated functions for each stage when the Enter key is pressed
   // this is used when user input texts and use the Enter key for "sending the text"
   if (keyCode === ENTER) {
-    if (stage === 0) {
+    if (stage === 0) { // make different things happen for different stages when the Enter key is pressed
       saveName(); // save username for later displaying them on the screen
     } else {
       analyzeAndDisplay(); // analyze the sentiment of user's chat to decide Mero's response
     }
   }
 
-  // this is used when user needs to let the character speaks a random line
+  // this is used when user needs to let the game goes to the next frame
   if (keyCode === RIGHT_ARROW) {
     if (stage === 1) {
-      // on stage 1, when the right arrow key is pressed, the stage goes to stage 2
-      stage = 2;
+      stage = 2;  // on stage 1, when the right arrow key is pressed, the stage goes to stage 2
       nextFrame();
     } else {
       // go to the next frame (new chat and new img) when the right arrow key is pressed on stage 2
@@ -320,6 +326,7 @@ function keyPressed() {
     }
   }
 }
+
 
 // on stage 2, goes to the next frame means to get a new random chat and its aligned image
 function nextFrame() {
