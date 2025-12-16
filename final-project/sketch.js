@@ -232,12 +232,9 @@ function saveName() {
 function buildStage1UI() {
   // resize canvas so that there can be a chatbox below it
   resizeCanvas(windowWidth, windowHeight * 0.75);
-  // Setup the DOM elements (input box and send button)
-  inputBox = createInput("Send Chat...");
-  inputBox.attribute("size", "75");
-  sendBtn = createButton("Send");
-  // sentimentResult = createP("Sentiment Confidence:");
-  sendBtn.mousePressed(analyzeAndDisplay);
+  inputBox = createInput("Send Chat..."); // create the input box for users to send chat like how they would while watching a stream
+  sendBtn = createButton("Send"); // create the button to let users send the chat
+  sendBtn.mousePressed(analyzeAndDisplay); // when button is pressed, the analyzeAndDisplay function runs and determines the sentiment of user input while displaying it on to the screen
 }
 
 
