@@ -13,7 +13,7 @@ The main interaction of the game, starting from stage 1, is through sending chat
 
 ========================================
 
-**There is a list of resources I used when I was writing the code:**
+**Here is a list of resources I used when I was writing the code:**
 
 ml5.js Sentiment Model: https://docs.ml5js.org/#/reference/sentiment （I added more functions based on it so that it does not only detects the sentiment confidence but also let Mero talk something back according to it
 
