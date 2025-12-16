@@ -11,6 +11,7 @@ Stage 0 is the title page, and starting from stage 1 is the main game. On stage 
 
 The main interaction of the game, starting from stage 1, is through sending chats to Mero like how audiences would send chats to streamers.Users can do this by inputing texts in the input box and see Mero's response to it. To do this, I used ml5.js Sentiment Model to determine the sentiment confidence level - or in other words, how positive it is - of user's inputed texts. Then, I let Mero respond differently to user's inputs, depending on the sentiment confidence. Other than doing that, user can also press the right arrow to let Mero talk by herself. By doing this, the system will pull a random quote - and its aligned image - from the poll of quptes I wrote to display to the screen. 
 
+
 **There is a list of resources I used when I was writing the code:**
 ml5.js Sentiment Model: https://docs.ml5js.org/#/reference/sentiment （I added more functions based on it so that it does not only detects the sentiment confidence but also let Mero talk something back according to it
 Change stages: https://www.youtube.com/watch?v=RlsRQS5qFSY&t=87s (I added a lot from it when I found out UI would not run correctly when I put them in function draw(), so I put the UI in setup instead)

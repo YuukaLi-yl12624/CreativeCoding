@@ -266,7 +266,7 @@ function gotResult(prediction) {
     } else if (stage === 2) { 
       // pick a random response from the positive responses and its aligned image
       // positive response&image for stage 2
-      const i = floor(random(PositiveTexts.length)); // pick a random index 
+      const i = floor(random(PositiveTexts.length)); // pick a random index (floor rounds to the lowest number)
       MeroResponse = PositiveTexts[i]; // get the response text according to the index
       MeroCurrentLine = PositiveTexts[i]; // let the text be displayed to the screen
       currentMeroImg = PositiveImgs[i]; // get the aligned image according to the index
